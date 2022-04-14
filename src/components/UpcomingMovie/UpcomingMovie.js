@@ -1,7 +1,7 @@
 import React from 'react'
 import './upcomingMovie.scss'
 
-const UpcomingMovie = ({movie}) => {
+const UpcomingMovie = ({movie, genres}) => {
     const url = "https://image.tmdb.org/t/p/w200"
     const color = movie.vote_average >= 7 ? "green" : "red"
   return (
@@ -12,7 +12,12 @@ const UpcomingMovie = ({movie}) => {
         </div>
         <div className='item-info'>
             <h3 className='item-title'>{movie.title}</h3>
-            <p className='item-date'>{movie.release_date}</p>
+            <p className='item-date'>{movie.genre_ids.map((gen, i) => {
+                if(i === 1) return;
+                const genre = genres.filter((g) => g.id === gen);
+                const genreName = genre[0].name
+                return <span key={i} style={{marginRight: "5px"}}>{genreName}</span>
+            })}</p>
         </div>
     </div>
   )
