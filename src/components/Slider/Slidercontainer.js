@@ -28,7 +28,7 @@ import './slider.scss'
     infinite: false,
     speed: 500,
     slidesToShow: 5,
-    slidesToScroll: 1
+    slidesToScroll: 5
   };
   return (
     <div>

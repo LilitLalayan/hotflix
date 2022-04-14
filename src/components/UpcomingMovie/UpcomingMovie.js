@@ -1,11 +1,11 @@
 import React from 'react'
-import './sliderItem.scss'
+import './upcomingMovie.scss'
 
-const SliderItem = ({movie}) => {
+const UpcomingMovie = ({movie}) => {
     const url = "https://image.tmdb.org/t/p/w200"
     const color = movie.vote_average >= 7 ? "green" : "red"
   return (
-    <div className='item-container'>
+    <div className='item-container upcoming-movie'>
         <div className='img-container' style={{backgroundImage: `url(${url}${movie.poster_path})`}}>
             <div className='item-rate flex' style={{border: `1px solid ${color}`}}>{movie.vote_average.toFixed(1)}</div>
             <div className='default-text'>The movie</div>
@@ -18,4 +18,4 @@ const SliderItem = ({movie}) => {
   )
 }
 
-export default SliderItem
+export default UpcomingMovie
