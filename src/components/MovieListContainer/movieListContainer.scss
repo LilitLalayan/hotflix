@@ -1,0 +1,23 @@
+@use "../../App.scss";
+
+.movie-list-container {
+    width: 100%;
+    flex-direction: column;
+    .movie-list-title {
+        margin-top: 20px;
+        text-transform: uppercase;
+        line-height: 50px;
+        color: App.$main-text
+    }
+    .line {
+        background-color: App.$devider;
+        height: 0.1px;
+        width: 100%;
+    }
+    .movie-list-btn {
+        width: 100px;
+        text-transform: uppercase;
+        margin: 30px 0;
+        cursor: pointer;
+    }
+}
