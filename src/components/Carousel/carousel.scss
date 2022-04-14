@@ -1,0 +1,28 @@
+@use "../../App.scss";
+
+.carousel {
+    justify-content: center;
+    height: 500px;
+    .carousel-container {
+        justify-content: center;
+        height: 100%;
+        width: 100%;
+        background-color: App.$secondary-color;
+        .carousel-wrapper {
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            .carousel-header {
+                justify-content: space-between;
+                align-items: flex-start;
+                color: App.$main-text;
+            }
+            .carousel-title{
+                margin: 0;
+                text-transform: uppercase;
+            }
+        }
+    }
+    
+}
