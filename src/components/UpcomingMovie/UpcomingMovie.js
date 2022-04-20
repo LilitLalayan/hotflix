@@ -13,9 +13,8 @@ const UpcomingMovie = ({movie, genres}) => {
         <div className='item-info'>
             <h3 className='item-title'>{movie.title}</h3>
             <p className='item-date'>{movie.genre_ids.map((gen, i) => {
-                if(i === 1) return;
                 const genre = genres.filter((g) => g.id === gen);
-                const genreName = genre[0].name
+                const genreName = genre[0].name || '';
                 return <span key={i} style={{marginRight: "5px"}}>{genreName}</span>
             })}</p>
         </div>

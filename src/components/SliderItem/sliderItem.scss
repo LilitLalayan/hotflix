@@ -1,21 +1,24 @@
 @use "../../App.scss";
 .item-container {
     height: 350px;
-    width: 200px;
+    padding: 0 15px;
+    text-decoration: none;
     .img-container {
         height: 70%;
         width: 100%;
         display: flex;
+        background-size: cover;
         flex-direction: column;
         justify-content: space-between;
         padding: 10px 0;
+        
         .item-rate {
             margin-left: 10px;
             border-radius: 50%;
             width: 25px;
             height: 25px;
             font-size: 12px;
-            color: App.$secondary-text
+            color: App.$secondary-text;          
         }
         .default-text {
             text-align: center;
@@ -32,9 +35,16 @@
             height: 20px;
             overflow: hidden;
         }
+        .item-title:hover{
+            overflow: visible;
+        }
         .item-date {
             font-size: 12px;
-            color: App.$yellow
+            color: App.$yellow;
         }
     }
+}
+
+.item-date,.item-title {
+    max-width: 195px;
 }

@@ -1,16 +1,78 @@
-import './App.scss';
-import Carousel from './components/Carousel/Carousel';
-import Header from './components/Header/Header';
-import MovieListContainer from './components/MovieListContainer/MovieListContainer';
+import Homepage from './components/homepage'
+import React, {useState, useEffect}from 'react'
+import {
+  BrowserRouter,
+  Routes,
+  Route
+} from "react-router-dom";
+import Movie from './components/Movie/Movie';
 
 function App() {
+  let [movies, setMovies] = useState([])
+  let [upcomingMovies, setUpcomingMovies] = useState([]);
+  const [genres, setGenres] = useState([]);
+  const API_KEY = '3f18e7c073e37976013151c64f5ee4ad'
+  let [pages, setPages] = useState(1);
+    async function fetchGenres() {
+        try {
+            const response = await fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`)
+            const data = await response.json();
+            setGenres(data.genres)
+        } catch (e) {
+            alert(e.message)
+        }
+    }
+    async function fetchUpcomingMovies() {
+        try{
+            const response = await fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}&language=en-US&page=${pages}`);
+            const data = await response.json();
+            setUpcomingMovies([
+                ...upcomingMovies,
+                ...data.results
+            ]);
+        } catch (error) {
+            alert(error.message)
+        }
+    }
+
+    function addPages() {
+        setPages(++pages);
+    }
+    useEffect(() => {
+        fetchUpcomingMovies()
+    }, [pages])
+
+    useEffect(() => {
+        fetchGenres()
+    }, [])
+
+  async function fetchData() {
+      Promise.all([
+      fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`),
+      fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=2`),
+      fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=3`),
+      fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=4`)
+    ])
+    .then(results => {
+      return Promise.all(results.map(r => {
+        return r.json();        
+    }))
+   })
+    .then(data => data.forEach(d => setMovies(movies.concat(d.results))))
+    .catch(error => alert(error.message))
+  }
+
+  useEffect(() => {
+   fetchData();
+  }, [])
   return (
-    <div className="App">
-      <Header />
-      <Carousel />
-      <MovieListContainer />
-    </div>
-  );
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Homepage movies={movies} upcomingMovies={upcomingMovies} pages={pages} addPages={addPages} genres={genres}/>} />
+        <Route path="movie" element={<Movie movies={movies} />} />
+      </Routes>
+  </BrowserRouter>
+  )
 }
 
 export default App;
