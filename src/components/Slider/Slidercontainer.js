@@ -10,10 +10,10 @@ import { Link } from 'react-router-dom';
  const Slidercontainer = ({movies, settings}) => {
   
   return (
-    <div>
+    <div className='slider-container'>
       <Slider {...settings}>{
         movies.map((movie) => {
-          return <Link to={'/movie?id=' + movie.id} style={{textDecoration: 'none'}} key={movie.id}><SliderItem movie={movie} /></Link>
+          return <Link to={'/movie?id=' + movie.id} key={movie.id} target="_blank"><SliderItem movie={movie} /></Link>
         })
       }</Slider>
     </div>

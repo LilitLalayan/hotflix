@@ -47,6 +47,7 @@ function App() {
     }, [])
 
   async function fetchData() {
+    let allMovies = [];
       Promise.all([
       fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`),
       fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=2`),
@@ -54,11 +55,17 @@ function App() {
       fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=4`)
     ])
     .then(results => {
-      return Promise.all(results.map(r => {
+        return Promise.all(results.map(r => {
         return r.json();        
     }))
    })
-    .then(data => data.forEach(d => setMovies(movies.concat(d.results))))
+    .then(data => {
+      data.forEach(d => {
+      allMovies = allMovies.concat(d.results)
+      
+    })
+    setMovies(allMovies)
+  })
     .catch(error => alert(error.message))
   }
 
