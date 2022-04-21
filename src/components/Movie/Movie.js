@@ -33,13 +33,13 @@ const Movie = ({movies}) => {
   return (
       <>
             <Header />
-           {movieData.genres && (
+           {movieData.genres && movieData.release_date &&(
             <div className='movie-container flex'>
                 <div className='banner-blur flex' style={{backgroundImage: `url(${url}${movieData.poster_path})`}}></div>
                 <div className='banner' style={{backgroundImage: `url(${url}${movieData.poster_path})`}}></div>
                 <h1 className='movie-title'>{movieData.title || ''}</h1>
                 <div className='details flex'>
-                    <span className='detail'>{movieData.release_date}</span>
+                    <span className='detail'>{movieData.release_date.slice(0,4)}</span>
                     <span className='detail'>{runtime}</span>
                 </div>
                 <p className='overview'>{movieData.overview}</p>
@@ -54,7 +54,7 @@ const Movie = ({movies}) => {
                     <h4 className='mini-title'>More to watch</h4>
                 </div>
                 <div className='movie-slider-wrapper'>
-                    <Slidercontainer movies={movies.filter(m => m.genre_ids.includes(movieData.genres[0].id || movieData.genres[1].id || movieData.genres[2]))} settings={settings}/>  
+                    <Slidercontainer movies={movies.filter(m => m.genre_ids.includes(movieData.genres[0].id || movieData.genres[1].id || movieData.genres[2].id))} settings={settings}/>  
                 </div>          
             </div>
         )}

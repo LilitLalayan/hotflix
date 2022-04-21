@@ -1,1 +1,7 @@
 @use "../../App.scss";
+.slider-container {
+    margin: -15px;
+    a {
+        text-decoration: none;
+    }
+}
