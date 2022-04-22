@@ -31,6 +31,37 @@
         margin-right: 10px;
         font-size: 12px;
     }
+    .trailer-wrapper {
+        flex-direction: column;
+        position: relative;
+    }
+    .play-icon {
+        background-color: App.$yellow;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        color: #fff;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 30px;
+    }
+    .video {
+        position: absolute;
+        top: -130px;
+        display: none;
+        width: 700px;
+        height: 400px;
+        text-align: center;      
+        
+  }
+    .close{
+        display: flex;
+        justify-content: flex-end;
+        color: App.$yellow;
+        font-size: 50px;
+        padding: 0 40px;
+        cursor: pointer
+    }
     .overview {
         color: App.$secondary-text;
         width: 80%;
