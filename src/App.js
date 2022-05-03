@@ -22,7 +22,7 @@ function App() {
             alert(e.message)
         }
     }
-    async function fetchUpcomingMovies() {
+     const fetchUpcomingMovies = async() => {
         try{
             const response = await fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}&language=en-US&page=${pages}`);
             const data = await response.json();
@@ -76,7 +76,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Homepage movies={movies} upcomingMovies={upcomingMovies} pages={pages} addPages={addPages} genres={genres}/>} />
-        <Route path="movie" element={<Movie movies={movies} />} />
+        <Route path="movie" element={<Movie movies={movies} apiKey={API_KEY}/>} />
       </Routes>
   </BrowserRouter>
   )
