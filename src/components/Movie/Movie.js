@@ -4,13 +4,12 @@ import Header from '../Header/Header';
 import Slidercontainer from '../Slider/Slidercontainer';
 import './movie.scss'
 
-const Movie = ({movies}) => {
+const Movie = ({movies, apiKey}) => {
     const [movieData, setMovieData] = useState({})
     const [video, setVideo] = useState({});
     const vid = useRef('video');
     const { search } = useLocation();
     const id = search.replace('?id=', '');
-    const API_KEY = '3f18e7c073e37976013151c64f5ee4ad';
     const url = "https://image.tmdb.org/t/p/w200"
     const runtime = `${Math.floor(movieData.runtime / 60)} HRS ${movieData.runtime % 60} MINS`
     const settings = {
@@ -24,7 +23,7 @@ const Movie = ({movies}) => {
       };
     
     useEffect(() => {
-        fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-US`)
+        fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&language=en-US`)
         .then(res => res.json())
         .then(res => {
             setMovieData(res)
@@ -32,7 +31,7 @@ const Movie = ({movies}) => {
     }, [])
 
     useEffect(() => {
-        fetch(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=${API_KEY}&language=en-US`)
+        fetch(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=${apiKey}&language=en-US`)
         .then(res => res.json())
         .then(res => {
             console.log(res)
@@ -55,13 +54,19 @@ const Movie = ({movies}) => {
                 </div>
                 <div className='trailer-wrapper flex'>
                     <h4 className='mini-title'>Trailer</h4>
-                    <div className='play-icon flex' onClick={()=>vid.current.style.display="block"}>></div>
-                    <div className='video' ref={vid}>
-                        <div className='close' onClick={()=>vid.current.style.display="none"}>x</div>
-                        <div className='frame-container'>
-                        <iframe width="560" height="315" src={`https://www.youtube.com/embed/${video.key}`} title="YouTube video player" frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
-                        </div>
+                    <div className='play-icon flex' onClick={()=>{
+                            vid.current.style.display="block"
+                        }}>{'>'}</div>
+                    <div className='video-wrapper' ref={vid}>
+                        <div className='video-block' onClick={()=>vid.current.style.display="none"}/>
+                        {video && (
+                        <div className='video'>
+                            <div className='frame-container'>
+                            <iframe width="560" height="315" src={`https://www.youtube.com/embed/${video.key}`} title="YouTube video player" frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                            </div>
+                        </div> 
+                        )}
                     </div>
                 </div>
                 <p className='overview'>{movieData.overview}</p>
